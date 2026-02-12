@@ -35,26 +35,11 @@ export const requireAdmin = (event: H3Event) => {
 export const requireOrganizer = (event: H3Event) => {
   const user = requireAuth(event);
 
-  // Selon notre seed : 1 = admin, 4 = organisateur
-  if (user.roleId !== 1 && user.roleId !== 4) {
-    throw createError({
-      statusCode: 403,
-      statusMessage: "Forbidden: Organizer access required.",
-    });
-  }
-  return user;
-};
-
-/**
-*S'assure que l'utilisateur a au moins le rôle modérateur ou administrateur */
-export const requireModerator = (event: H3Event) => {
-  const user = requireAuth(event);
-
-  // Selon notre seed : 1 = admin, 2 = modérateur
+  // Selon notre seed : 1 = admin, 2 = organisateur
   if (user.roleId !== 1 && user.roleId !== 2) {
     throw createError({
       statusCode: 403,
-      statusMessage: "Forbidden: Moderator access required.",
+      statusMessage: "Forbidden: Organizer access required.",
     });
   }
   return user;

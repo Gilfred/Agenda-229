@@ -73,7 +73,7 @@ Ces requêtes nécessitent d'être connecté avec le compte `admin@example.com`.
   "roleId": 2
 }
 ```
-*Note: 1=admin, 2=moderator, 3=user simple*
+*Note: 1=admin, 2=organizer, 3=user simple*
 
 ### 7. Activer/Désactiver un compte
 - **URL**: `http://localhost:3000/api/admin/users/{userId}/status`

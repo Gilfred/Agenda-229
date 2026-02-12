@@ -16,12 +16,16 @@ export default defineEventHandler(async (event) => {
 
   let title = "";
   let description = "";
+  let details = "";
   let location = "";
   let eventDate = "";
   let startDate = "";
   let endDate = "";
   let villeId = "";
   let categoryId = "";
+  let price = "";
+  let priceType = "FREE";
+  let status = "DRAFT";
   let imageFile: any = null;
 
   for (const field of formData) {
@@ -31,12 +35,16 @@ export default defineEventHandler(async (event) => {
 
     if (field.name === "title") title = value;
     else if (field.name === "description") description = value;
+    else if (field.name === "details") details = value;
     else if (field.name === "location") location = value;
     else if (field.name === "eventDate") eventDate = value;
     else if (field.name === "startDate") startDate = value;
     else if (field.name === "endDate") endDate = value;
     else if (field.name === "villeId") villeId = value;
     else if (field.name === "categoryId") categoryId = value;
+    else if (field.name === "price") price = value;
+    else if (field.name === "priceType") priceType = value;
+    else if (field.name === "status") status = value;
     else if (field.name === "image") imageFile = field;
   }
 
@@ -64,8 +72,8 @@ export default defineEventHandler(async (event) => {
         const uploadResult = await cloudinary.uploader.upload(
           `data:${imageFile.type};base64,${imageFile.data.toString('base64')}`,
           {
-            folder: 'blog_posts',
-            public_id: `post-${uniqueSuffix}-${safeFilename}`,
+            folder: 'events',
+            public_id: `event-${uniqueSuffix}-${safeFilename}`,
           }
         )
     
@@ -75,11 +83,15 @@ export default defineEventHandler(async (event) => {
           data: {
             title,
             description,
+            details: details || null,
             location,
             eventDate: new Date(eventDate),
             startDate,
             endDate: endDate || null,
             image: imageUrl,
+            price: price ? parseFloat(price) : null,
+            priceType: priceType as any,
+            status: status as any,
             userId: user.id,
             villeId,
             categoryId,

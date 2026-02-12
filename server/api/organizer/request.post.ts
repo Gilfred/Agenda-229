@@ -4,6 +4,14 @@ import { requireAuth } from "~~/server/utils/protect";
 export default defineEventHandler(async (event) => {
   const user = requireAuth(event);
 
+  // Vérifier si l'utilisateur est déjà un organisateur
+  if (user.roleId === 2) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Vous êtes déjà un organisateur.",
+    });
+  }
+
   // Vérifier si une demande est déjà en cours pour cet utilisateur
   const existingRequest = await prisma.organizerRequest.findFirst({
     where: {

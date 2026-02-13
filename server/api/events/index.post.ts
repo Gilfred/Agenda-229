@@ -58,13 +58,26 @@ export default defineEventHandler(async (event) => {
     !location ||
     !eventDate ||
     !startDate ||
-    imageFiles.length === 0 ||
     !villeId ||
     !categoryId
   ) {
     throw createError({
       statusCode: 400,
       statusMessage: "Tous les champs obligatoires doivent être remplis",
+    });
+  }
+
+  if (imageFiles.length === 0) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Au moins une image est requise",
+    });
+  }
+
+  if (imageFiles.length > 3) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Le nombre d'images maximum est de 3",
     });
   }
 

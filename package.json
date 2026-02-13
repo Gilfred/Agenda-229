@@ -39,6 +39,5 @@
     "prettier": "^3.8.1",
     "prisma": "6.19.2",
     "tsx": "^4.21.0"
-  },
-  "packageManager": "pnpm@10.28.0"
+  }
 }

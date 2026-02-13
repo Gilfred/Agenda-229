@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
       include: {
         ville: true,
         category: true,
+        images: true,
         user: {
           select: {
             id: true,
